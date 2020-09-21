@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-// import Login from '../views/user/login/index.vue'
-// import Admin from '../views/user/admin/index.vue'
-
+// import Home from '../views/Home.vue'
+import Login from '../views/Login.vue'
+import Admin from '../views/admin/index.vue'
+import UserAd from '../views/admin/User/index.vue'
+import AboutAd from  '../views/About.vue'
 
 
 Vue.use(VueRouter)
@@ -11,26 +12,25 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect:'/login'
+	redirect:'/login'
   },
+  //默认跳到login
   {
     path: '/login',
-    name:'Login',
-  	component:Login,
+  	name: 'Login',
+	component:Login
   },
   {
     path: '/admin',
-    name:'Admin',
-	component:Admin,
+  	name: 'Admin',
+  	component:Admin,
+	children:[
+		{path:'user',component:UserAd},
+		{path:'about',component:AboutAd},
+		{path:'',redirect:'user'},
+	]
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+ 
 ]
 
 const router = new VueRouter({
